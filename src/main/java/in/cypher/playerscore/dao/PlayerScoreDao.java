@@ -63,7 +63,7 @@ public interface PlayerScoreDao extends JpaRepository<ScoreCard, Integer> {
 
     // Get player average score
     @Query(value = "SELECT AVG(score) AS playerScore, created_at, id, player_name, score, is_deleted FROM score_card where player_name= ?1 AND is_deleted = 0", nativeQuery = true)
-    int getAvgScore(String playerName);
+    float getAvgScore(String playerName);
 
     // Get player information using player score and name
     @Query(value = "SELECT * FROM score_card where score=?1 AND player_name=?2 AND is_deleted = 0", nativeQuery = true)

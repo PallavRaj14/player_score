@@ -7,7 +7,7 @@ public class PlayerHistoryResponse {
 
     @Getter
     @Setter
-    public int playerScore;
+    public float playerScore;
 
     @Getter
     @Setter

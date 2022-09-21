@@ -9,6 +9,7 @@ import in.cypher.playerscore.dao.PlayerScoreDao;
 import in.cypher.playerscore.schema.ScoreCard;
 import in.cypher.playerscore.util.Utility;
 import lombok.RequiredArgsConstructor;
+import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,7 +54,7 @@ public class PlayerScoreServiceImpl implements PlayerScoreService {
     @Override
     public PlayerScoreResponse getScoreByPlayerId(int id) {
 
-        ScoreCard scoreCard = playerScoreDao.getById(id);
+        var scoreCard = playerScoreDao.getById(id);
         if (null != scoreCard) {
             return utility.playerScoreResponseMapper(scoreCard);
         }
@@ -62,7 +63,7 @@ public class PlayerScoreServiceImpl implements PlayerScoreService {
 
     @Override
     public String deletePlayerById(int id) {
-        ScoreCard scoreCard = playerScoreDao.getById(id);
+        var scoreCard = playerScoreDao.getById(id);
         if (null != scoreCard) {
             playerScoreDao.logicalDeleteById(id);
             return "player id " + id + " deleted";
@@ -122,19 +123,19 @@ public class PlayerScoreServiceImpl implements PlayerScoreService {
         PlayerHistoryResponse playerHistoryResponse = null;
         ScoreCard scoreCard = null;
         if (playerScoreHistoryRequest.getPlayerScoreType().equalsIgnoreCase("ts")) {
-            int topScore = playerScoreDao.getTopScore(playerScoreHistoryRequest.getPlayerName());
+            var topScore = playerScoreDao.getTopScore(playerScoreHistoryRequest.getPlayerName());
             scoreCard = playerScoreDao.getPlayerNameAndDateByScore(topScore, playerScoreHistoryRequest.getPlayerName());
             playerHistoryResponse = utility.playerHistoryResponseMapper(topScore, scoreCard);
         } else if (playerScoreHistoryRequest.getPlayerScoreType().equalsIgnoreCase("ls")) {
-            int minScore = playerScoreDao.getLowScore(playerScoreHistoryRequest.getPlayerName());
+            var minScore = playerScoreDao.getLowScore(playerScoreHistoryRequest.getPlayerName());
             scoreCard = playerScoreDao.getPlayerNameAndDateByScore(minScore, playerScoreHistoryRequest.getPlayerName());
             playerHistoryResponse = utility.playerHistoryResponseMapper(minScore, scoreCard);
         } else if (playerScoreHistoryRequest.getPlayerScoreType().equalsIgnoreCase("avg")) {
-            int avgScore = playerScoreDao.getAvgScore(playerScoreHistoryRequest.getPlayerName());
+            var avgScore = playerScoreDao.getAvgScore(playerScoreHistoryRequest.getPlayerName());
             playerHistoryResponse = new PlayerHistoryResponse();
             playerHistoryResponse.setPlayerScore(avgScore);
             playerHistoryResponse.setPlayerName(playerScoreHistoryRequest.getPlayerName());
-            long millis = System.currentTimeMillis();
+            var millis = System.currentTimeMillis();
             Date date = new java.sql.Date(millis);
             playerHistoryResponse.setCreate_at(date.toString());
         }

@@ -8,7 +8,6 @@ import in.cypher.playerscore.beans.response.PlayerResponse;
 import in.cypher.playerscore.beans.response.PlayerScoreResponse;
 import in.cypher.playerscore.schema.ScoreCard;
 import in.cypher.playerscore.service.PlayerScoreService;
-import in.cypher.playerscore.util.Utility;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -36,9 +35,6 @@ public class PlayerController {
 
     @Autowired
     PlayerScoreService playerScoreService;
-
-    @Autowired
-    Utility utility;
 
     @Operation(summary = "This API takes player information as parameters and stores into Database, created_at date must be in this format 'dd-MM-yyyy HH:mm:ss'")
     @PostMapping(value = "/add/score", produces = "application/json")

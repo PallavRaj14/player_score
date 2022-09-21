@@ -3,6 +3,7 @@ package in.cypher.playerscore.util;
 import in.cypher.playerscore.beans.response.PlayerHistoryResponse;
 import in.cypher.playerscore.beans.response.PlayerScoreResponse;
 import in.cypher.playerscore.schema.ScoreCard;
+import lombok.var;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -25,7 +26,7 @@ public class Utility {
 
     public LocalDateTime dateTimeConverter(String dateAndTime) {
         String pattern = "dd-MM-yyyy HH:mm:ss";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        var formatter = DateTimeFormatter.ofPattern(pattern);
         return from(formatter.parse(dateAndTime));
     }
 

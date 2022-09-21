@@ -13,7 +13,9 @@ import static in.cypher.playerscore.response.ScoreCardResponse.playerHistory_Low
 import static in.cypher.playerscore.response.ScoreCardResponse.playerHistory_LowScoreResponse;
 import static in.cypher.playerscore.response.ScoreCardResponse.playerHistory_TopScore;
 import static in.cypher.playerscore.response.ScoreCardResponse.playerHistory_TopScoreResponse;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.MockitoAnnotations.openMocks;
 
@@ -34,8 +36,8 @@ class PlayerScoreServiceImplTest {
 
     @Test
     public void getPlayerHistory_TopScore() {
-        given(playerScoreDao.getTopScore("Sachin Tendulkar")).willReturn(200);
-        given(playerScoreDao.getPlayerNameAndDateByScore(200, "Sachin Tendulkar")).willReturn(playerHistory_TopScore());
+        given(playerScoreDao.getTopScore(anyString())).willReturn(200);
+        given(playerScoreDao.getPlayerNameAndDateByScore(anyInt(), anyString())).willReturn(playerHistory_TopScore());
         given(utility.playerHistoryResponseMapper(200, playerHistory_TopScore())).willReturn(playerHistory_TopScoreResponse());
 
         PlayerHistoryResponse actual = playerScoreService.playerHistory(playerTopScoreHistoryRequest());
@@ -48,8 +50,8 @@ class PlayerScoreServiceImplTest {
     @Test
     public void getPlayerHistory_LowScore() {
 
-        given(playerScoreDao.getLowScore("Sachin Tendulkar")).willReturn(10);
-        given(playerScoreDao.getPlayerNameAndDateByScore(10, "Sachin Tendulkar")).willReturn(playerHistory_LowScore());
+        given(playerScoreDao.getLowScore(anyString())).willReturn(10);
+        given(playerScoreDao.getPlayerNameAndDateByScore(anyInt(), anyString())).willReturn(playerHistory_LowScore());
         given(utility.playerHistoryResponseMapper(10, playerHistory_LowScore())).willReturn(playerHistory_LowScoreResponse());
 
         PlayerHistoryResponse actual = playerScoreService.playerHistory(playerLowScoreHistoryRequest());
